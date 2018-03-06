@@ -1,3 +1,88 @@
 // Place all the styles related to the page controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: #f3f3f3;
+  font-family: -apple-system-font, "Helvetica Neue", sans-serif;
+}
+
+div {
+  width: 100%;
+  background: #fff;
+  margin: 0 0 10px 0;
+  padding: 10px;
+}
+
+header {
+  div {
+    padding: 0;
+  }
+  img {
+    width: 100%;
+  }
+}
+
+main {
+  margin-bottom: 50px;
+  .post-info {
+    opacity: 0.95;
+    height: 120px;
+  }
+  .presentation {
+    * {
+      width: 220px;
+      margin: 0 auto;
+      font-size: 13px;
+      color: #898989;
+      text-align: center;
+    }
+    .box-tip {
+      padding: 15px;
+      border: 2px dashed #898989;
+    }
+    .tips {
+      padding: 10px
+    }
+    img {
+      display: block;
+    }
+  }
+  .reminder {
+    ol {
+      list-style: decimal;
+    }
+    li {
+      margin-left: 20px
+    }
+  }
+  .end {
+    background: #f3f3f3;
+    p {
+      text-align: center;
+      color: #898989;
+      font-size: 10px;
+    }
+  }
+}
+
+
+footer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  div {
+    margin: 0;
+  }
+  .nav {
+    border: 0.1px solid gray;
+  }
+  li {
+    display: inline-block;
+  }
+}
