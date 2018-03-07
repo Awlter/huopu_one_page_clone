@@ -2,6 +2,7 @@ class PageController < ApplicationController
   before_action :add_uv
 
   def front
+    binding.pry
   end
 
   private
