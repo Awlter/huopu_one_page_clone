@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180307091800) do
+ActiveRecord::Schema.define(version: 20180308064850) do
 
   create_table "pages_view_counts", force: :cascade do |t|
     t.string "page_title"
     t.integer "counter", default: 1
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "date"
   end
 
   create_table "unique_visitors", force: :cascade do |t|

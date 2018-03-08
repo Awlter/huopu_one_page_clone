@@ -5,7 +5,7 @@
 
     },
     complete: function() {
-      setTimeout(worker, 500);
+      setTimeout(worker, 1000);
     }
   });
 })();

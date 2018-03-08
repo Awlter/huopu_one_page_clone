@@ -1,5 +1,6 @@
 class PageController < ApplicationController
-  before_action :set_page_title, :count_uvs, :count_pvs, only: [:front]
+  before_action :set_page_title, only: [:front, :statistics]
+  before_action :count_uvs, :count_pvs, only: [:front]
   after_action :save_pvs, only: [:front]
 
   def front
@@ -8,9 +9,12 @@ class PageController < ApplicationController
   def statistics
     @online_users_number = get_online_users_number
 
+    @uvs = UniqueVisitor.count
+    @pvs = all_history_pvs
+
     respond_to do |format|
       format.js
-      format.html
+      format.html {}
     end
   end
 
@@ -32,7 +36,7 @@ class PageController < ApplicationController
 
   def count_pvs
     unless !!read_pvs
-      Rails.cache.write(@page_title, PagesViewCount.find_by(page_title: @page_title).counter)
+      Rails.cache.write(@page_title, all_history_pvs)
     end
 
     Rails.cache.write(@page_title, read_pvs + 1)
@@ -42,11 +46,22 @@ class PageController < ApplicationController
     Rails.cache.read(@page_title)
   end
 
+  def all_history_pvs
+    PagesViewCount.where(page_title: @page_title).sum("counter")
+  end
+
   def save_pvs
     if more_than_1_secs?
       set_last_time
-      PagesViewCount.find_by(page_title: @page_title).update(counter: read_pvs)
+      if !find_today_view_count
+        PagesViewCount.create(page_title: @page_title, date: Time.now.strftime("%F"))
+      end
+      find_today_view_count.update(counter: read_pvs, date: Time.now.strftime("%F"))
     end
+  end
+
+  def find_today_view_count
+    PagesViewCount.find_by(page_title: @page_title, date: Time.now.strftime("%F"))
   end
 
   def more_than_1_secs?
