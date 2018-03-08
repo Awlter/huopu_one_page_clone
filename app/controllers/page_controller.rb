@@ -7,6 +7,11 @@ class PageController < ApplicationController
 
   def statistics
     @online_users_number = get_online_users_number
+
+    respond_to do |format|
+      format.js
+      format.html
+    end
   end
 
   private
