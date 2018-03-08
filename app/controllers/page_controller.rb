@@ -1,9 +1,8 @@
 class PageController < ApplicationController
-  before_action :set_page_title, :set_and_add_uvs, :set_and_add_pvs, only: [:front]
+  before_action :set_page_title, :count_uvs, :count_pvs, only: [:front]
   after_action :save_pvs
 
   def front
-
   end
 
   private
@@ -12,21 +11,18 @@ class PageController < ApplicationController
     @page_title = self.class.to_s.gsub('Controller', '')
   end
 
-  def set_and_add_uvs
+  def count_uvs
     ip = request.remote_ip
     uv = UniqueVisitor.new(ip: ip)
     UniqueVisitor.find_by(ip: ip).update(updated_at: Time.now) unless uv.save
-    @uvs = UniqueVisitor.count
   end
 
-  def set_and_add_pvs
+  def count_pvs
     unless !!read_pvs
       Rails.cache.write(@page_title, PagesViewCount.find_by(page_title: @page_title).counter)
     end
 
-    @pvs = read_pvs
-
-    Rails.cache.write(@page_title, @pvs + 1)
+    Rails.cache.write(@page_title, read_pvs + 1)
   end
 
   def read_pvs
@@ -36,7 +32,7 @@ class PageController < ApplicationController
   def save_pvs
     if more_than_1_secs?
       set_last_time
-      PagesViewCount.find_by(page_title: @page_title).update(counter: @pvs)
+      PagesViewCount.find_by(page_title: @page_title).update(counter: read_pvs)
     end
   end
 
