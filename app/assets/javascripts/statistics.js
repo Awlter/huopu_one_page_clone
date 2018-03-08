@@ -1,9 +1,7 @@
 (function worker() {
   $.ajax({
-    url: '/statistics', 
-    success: function(data) {
-
-    },
+    url: '/statistics',
+    dataType: 'script',
     complete: function() {
       setTimeout(worker, 1000);
     }

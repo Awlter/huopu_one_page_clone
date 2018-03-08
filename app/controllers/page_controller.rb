@@ -8,13 +8,12 @@ class PageController < ApplicationController
 
   def statistics
     @online_users_number = get_online_users_number
-
     @uvs = UniqueVisitor.count
     @pvs = all_history_pvs
 
     respond_to do |format|
-      format.js
       format.html {}
+      format.js
     end
   end
 
