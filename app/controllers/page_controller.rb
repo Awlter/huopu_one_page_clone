@@ -1,11 +1,19 @@
 class PageController < ApplicationController
   before_action :set_page_title, :count_uvs, :count_pvs, only: [:front]
-  after_action :save_pvs
+  after_action :save_pvs, only: [:front]
 
   def front
   end
 
+  def statistics
+    @online_users_number = get_online_users_number
+  end
+
   private
+
+  def get_online_users_number
+    UniqueVisitor.where('updated_at > ?', 1.minutes.ago).count
+  end
 
   def set_page_title
     @page_title = self.class.to_s.gsub('Controller', '')
