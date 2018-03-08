@@ -1,5 +1,5 @@
 class PageController < ApplicationController
-  before_action :set_page_title, only: [:front, :statistics]
+  before_action :set_page_title, only: [:front, :statistics, :search_by_date]
   before_action :count_uvs, :count_pvs, only: [:front]
   after_action :save_pvs, only: [:front]
 
@@ -13,6 +13,17 @@ class PageController < ApplicationController
 
     respond_to do |format|
       format.html {}
+      format.js
+    end
+  end
+
+  def search_by_date
+    date = [params['year'], params['month'], params['day']].join('-')
+    @pvs = PagesViewCount.find_by(page_title: @page_title, date: date).try(:counter) || 0
+
+    @uvs = UniqueVisitor.select { |v| v.updated_at.strftime("%F") == date }.count
+
+    respond_to do |format|
       format.js
     end
   end
