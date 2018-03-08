@@ -1,9 +1,10 @@
-(function worker() {
+var signal = function() {
   $.ajax({
     url: '/statistics',
-    dataType: 'script',
-    complete: function() {
-      setTimeout(worker, 1000);
-    }
-  });
-})();
+    dataType: 'script'
+  })
+}
+
+jQuery(function($) {
+  setInterval(signal, 1000)
+});
