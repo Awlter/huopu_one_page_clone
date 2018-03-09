@@ -1,24 +1,25 @@
-# README
+# Rails 面试题
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## 访客统计
 
-Things you may want to cover:
+要求: 两个页面, 一个是首页, 一个是统计结果页;
 
-* Ruby version
+### 首页
 
-* System dependencies
+复刻 https://huo365.cn/wechat/products/403605 
 
-* Configuration
+要求:
 
-* Database creation
+- 移动端表现良好
+- 只需复刻样式和基本交互, 实现静态页( 数据写死 ), 无需实现功能
+- 统计访客的 PV 和 UV
 
-* Database initialization
 
-* How to run the test suite
+### 统计页
 
-* Services (job queues, cache servers, search engines, etc.)
+能够看到首页当前的在线人数, 以及历史 PV/UV
 
-* Deployment instructions
+要求:
 
-* ...
+- 历史 PV/UV 需要根据日期筛选
+- 当前在线人数需要实时更改
