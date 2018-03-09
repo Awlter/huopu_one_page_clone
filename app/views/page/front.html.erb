@@ -1,3 +1,7 @@
+<%= content_for :head do %>
+  <%= javascript_include_tag 'page' %>
+<% end %>
+
 <header>
   <div>
     <%= image_tag 'front.png' %>        
@@ -15,9 +19,24 @@
   </div>
 
   <div class="post-info">
-    <p>¥9.9</p>
-    <p>关注微信预约 店铺活动 J159</p>
-    <p>Hot 1779 | 88 人购买</p>
+    <div class="left">
+      <p class="price">¥<span class="capital">9</span>.9 <span class="previous">原价 199 元</span></p>
+      <p class="title">关注微信预约 店铺活动 J159</p>
+      <p class="count">1779 <span>|</span> 88 人购买</p>      
+    </div>
+    <div class="size">
+      <h3>尺寸</h3>
+      <span>60 cm</span>
+      <div>
+        <span>90 cm</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="float-cart">
+    <a href="#">
+      <img src="https://f2e-asset.huo365.cn/assets/wechat/nav/shopping_cart_slt-d7187aeb7cdfb4d84a302946234bb236f5a523db878552dfce8d1e5b0c79b0e6.png">
+    </a>
   </div>
 
   <div class="reminder">
@@ -39,10 +58,10 @@
 <footer>
   <div class="nav">
     <ul>
-      <li><a>首页</a></li>
-      <li><a>咨询</a></li>
-      <li><a>加入购物车</a></li>
-      <li><a>立即购买</a></li>
+      <li class="front"><a>首页</a></li><!--
+      --><li class="consult"><a>咨询</a></li><!--
+      --><li class="to-cart"><a>加入购物车</a></li><!--
+      --><li class="buy"><a>立即购买</a></li>
     </ul>
   </div>
 </footer>

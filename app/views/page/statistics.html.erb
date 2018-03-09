@@ -1,0 +1,25 @@
+<%= content_for :head do %>
+  <%= javascript_include_tag 'statistics' %>
+<% end %>
+
+<h2>流量统计</h2>
+<dl>
+  <dt>在线人数: </dt>
+  <dd id="online_user"><%= @online_users_number %></dd>
+</dl>
+<%= form_tag search_by_date_path, method: 'get', remote: true do %>
+  <%= label_tag :year %>:
+  <%= select_tag(:year, options_for_select(2018.downto(2017).map { |n| ["%02d" % n, "%02d" % n]})) %>
+  <%= label_tag :month %>:
+  <%= select_tag(:month, options_for_select((1..12).map { |n| ["%02d" % n, "%02d" % n]})) %>
+  <%= label_tag :day %>:
+  <%= select_tag(:day, options_for_select((1..31).map { |n| ["%02d" % n, "%02d" % n]})) %>
+  <%= submit_tag 'Submit' %>
+<% end %>
+<dl>
+  <dt>访客数:</dt>
+  <dd id="the_day_uvs"><%= @uvs %></dd>
+  <dt>页面浏览量:</dt>
+  <dd id="the_day_pvs"><%= @pvs %></dd>
+</dl>
+

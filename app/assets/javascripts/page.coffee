@@ -18,7 +18,6 @@ $ ->
     if windowPosition == 0
       $postInfo.css({'position': 'fixed', 'bottom': footerHeight, margin: 0 })
     else if windowPosition <= postInfoHeight
-      console.log(windowPosition)
       $postInfo.css(bottom: footerHeight - windowPosition)
     else if windowPosition > postInfoHeight
       $postInfo.css({'position': 'relative', 'bottom': 0, 'margin-bottom': '10px'})

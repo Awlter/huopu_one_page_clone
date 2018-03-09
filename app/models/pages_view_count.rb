@@ -1,0 +1,2 @@
+class PagesViewCount < ApplicationRecord
+end
