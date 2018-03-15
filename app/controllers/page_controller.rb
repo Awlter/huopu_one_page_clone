@@ -3,9 +3,6 @@ class PageController < ApplicationController
   before_action :count_uvs, :count_pvs, only: [:front]
   after_action :save_pvs, only: [:front]
 
-  def front
-  end
-
   def statistics
     @online_users_number = get_online_users_number
     @uvs = UniqueVisitor.count
@@ -21,7 +18,7 @@ class PageController < ApplicationController
     date = [params['year'], params['month'], params['day']].join('-')
     @pvs = PagesViewCount.find_by(page_title: @page_title, date: date).try(:counter) || 0
 
-    @uvs = UniqueVisitor.select { |v| v.updated_at.strftime("%F") == date }.count
+    @uvs = UniqueVisitor.select { |v| v.created_date == date }.count
 
     respond_to do |format|
       format.js
@@ -40,7 +37,8 @@ class PageController < ApplicationController
 
   def count_uvs
     ip = request.remote_ip
-    uv = UniqueVisitor.new(ip: ip)
+    today = Time.now.strftime("%F")
+    uv = UniqueVisitor.new(ip: ip, created_date: today)
     UniqueVisitor.find_by(ip: ip).update(updated_at: Time.now) unless uv.save
   end
 
